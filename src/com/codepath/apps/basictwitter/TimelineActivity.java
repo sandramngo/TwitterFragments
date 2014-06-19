@@ -45,7 +45,7 @@ public class TimelineActivity extends Activity {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
                 if (aTweets.getCount() > 0) {
-                    Tweet lastTweet = aTweets.getItem(totalItemsCount -1);
+                    Tweet lastTweet = aTweets.getItem(aTweets.getCount() - 1);
                     
                     customLoadMoreDataFromApi(page, lastTweet.getUid() - 1); 
                 }
@@ -62,6 +62,8 @@ public class TimelineActivity extends Activity {
                 fetchTimelineAsync(0);
             }
         });
+        
+        
     }
     
     @Override
@@ -98,12 +100,7 @@ public class TimelineActivity extends Activity {
     }
     
     public void onCompose(MenuItem mi) {
-        client.getVerifyCredentials(new JsonHttpResponseHandler() {
-           @Override
-            public void onSuccess(JSONObject json) {
-               thisUser = User.fromJSON(json);
-            } 
-        });
+
         
         if (thisUser != null) {
             Intent i = new Intent(this, ComposeActivity.class);
