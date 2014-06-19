@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:padding="10dp" >
 
     <ImageView
         android:id="@+id/ivProfileImageCompose"
@@ -18,7 +19,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/ivProfileImageCompose"
-        android:text="@string/foo_label" />
+        android:text="@string/foo_label"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:textStyle="bold" 
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/tvBody"
@@ -28,7 +33,9 @@
         android:layout_toRightOf="@+id/ivProfileImageCompose"
         android:text="@string/tweet_body_label"
         android:autoLink="all"
-     	android:linksClickable="true" />
+     	android:linksClickable="true" 
+        android:layout_marginLeft="5dp" 
+        android:textSize="12sp"/>
 
     <TextView
         android:id="@+id/tvUserScreenName"
@@ -36,7 +43,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/tvUserName"
-        android:text="" />
+        android:text=""
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/tvTimestamp"
@@ -47,6 +55,7 @@
         android:layout_toRightOf="@+id/tvUserScreenName"
         android:layout_above="@+id/tvBody"
         android:gravity="right"
-        android:text="" />
+        android:text=""
+        android:textSize="12sp"/>
 
 </RelativeLayout>

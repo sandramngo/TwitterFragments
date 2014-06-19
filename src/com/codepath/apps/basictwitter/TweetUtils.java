@@ -16,7 +16,9 @@ public class TweetUtils {
         try {
             long dateMillis = sf.parse(rawJsonDate).getTime();
             relativeDate = DateUtils.getRelativeTimeSpanString(dateMillis,
-                    System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS).toString();
+                    System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS, DateUtils.FORMAT_ABBREV_ALL).toString();
+            int firstSpace = relativeDate.indexOf(" ");
+            relativeDate = relativeDate.substring(0, firstSpace) + relativeDate.charAt(firstSpace + 1);
         } catch (ParseException e) {
             e.printStackTrace();
         }
