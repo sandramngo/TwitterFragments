@@ -63,7 +63,12 @@ public class TimelineActivity extends Activity {
             }
         });
         
-        
+        client.getVerifyCredentials(new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(JSONObject json) {
+                thisUser = User.fromJSON(json);
+            }
+        });
     }
     
     @Override
@@ -99,9 +104,7 @@ public class TimelineActivity extends Activity {
         return true;
     }
     
-    public void onCompose(MenuItem mi) {
-
-        
+    public void onCompose(MenuItem mi) {       
         if (thisUser != null) {
             Intent i = new Intent(this, ComposeActivity.class);
             i.putExtra("user", thisUser);
