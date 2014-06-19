@@ -28,4 +28,23 @@
         android:layout_toRightOf="@+id/ivProfileImage"
         android:text="@string/tweet_body_label" />
 
+    <TextView
+        android:id="@+id/tvUserScreenName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/tvUserName"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/tvTimestamp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/tvUserScreenName"
+        android:layout_above="@+id/tvBody"
+        android:gravity="right"
+        android:text="" />
+
 </RelativeLayout>
