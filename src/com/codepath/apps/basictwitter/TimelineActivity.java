@@ -11,6 +11,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 
 import com.codepath.apps.basictwitter.models.Tweet;
@@ -20,7 +23,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import eu.erikw.PullToRefreshListView;
 import eu.erikw.PullToRefreshListView.OnRefreshListener;
 
-public class TimelineActivity extends Activity {
+public class TimelineActivity extends Activity implements OnItemClickListener {
     private TwitterClient client;
     private ArrayList<Tweet> tweets;
     private ArrayAdapter<Tweet> aTweets;
@@ -62,6 +65,8 @@ public class TimelineActivity extends Activity {
                 fetchTimelineAsync(0);
             }
         });
+        
+        lvTweets.setOnItemClickListener(this);
         
         client.getVerifyCredentials(new JsonHttpResponseHandler() {
             @Override
@@ -137,5 +142,14 @@ public class TimelineActivity extends Activity {
                 Log.d("DEBUG", "Fetch timeline error: " + e.toString());
             }
         }, 0);
+    }
+    
+    @Override
+    public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+        Tweet tweet = tweets.get(position);
+        Intent i = new Intent(this, TweetDetailActivity.class);
+        i.putExtra("tweet", tweet);
+        startActivity(i);
+        
     }
 }

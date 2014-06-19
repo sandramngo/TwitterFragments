@@ -12,5 +12,6 @@
     <string name="title_activity_compose">ComposeActivity</string>
     <string name="compose_tweet_hint">What\'s happening?</string>
     <string name="action_tweet">Tweet</string>
+    <string name="title_activity_tweet_detail">TweetDetailActivity</string>
 
 </resources>
