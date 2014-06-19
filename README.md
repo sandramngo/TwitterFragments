@@ -19,7 +19,7 @@ Completed user stories:
  * [x] Advanced: User can refresh tweets timeline by pulling down to refresh (i.e pull-to-refresh)
  * [] Advanced: User can open the twitter app offline and see last loaded tweets
    * []Tweets are persisted into sqlite and can be displayed from the local DB
- * [] Advanced: User can tap a tweet to display a "detailed" view of that tweet
+ * [x] Advanced: User can tap a tweet to display a "detailed" view of that tweet
  * [] Advanced: User can select "reply" from detail view to respond to a tweet
  * [] Advanced: Improve the user interface and theme the app to feel "twitter branded"
  * [] Bonus: User can see embedded image media within the tweet detail view
