@@ -2,12 +2,15 @@
 <resources>
 
     <string name="app_name">Basic Twitter</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_compose">Compose</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_photos">Flickr Photos</string>
     <string name="login_label">Connect to Twitter</string>
     <string name="title_activity_timeline">TimelineActivity</string>
     <string name="foo_label">\@foo</string>
     <string name="tweet_body_label">This is the tweet body</string>
+    <string name="title_activity_compose">ComposeActivity</string>
+    <string name="compose_tweet_hint">What\'s happening?</string>
+    <string name="action_tweet">Tweet</string>
 
 </resources>

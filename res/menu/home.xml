@@ -4,6 +4,7 @@
         android:id="@+id/action_compose"
         android:showAsAction="ifRoom"
         android:title="@string/action_compose"
-        android:icon="@drawable/ic_compose"/>
+        android:icon="@drawable/ic_compose"
+        android:onClick="onCompose"/>
 
 </menu>

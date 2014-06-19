@@ -1,0 +1,43 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="${packageName}.${activityClass}" >
+
+    <ImageView
+        android:id="@+id/ivProfileImageCompose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/ic_launcher" />
+
+    <TextView
+        android:id="@+id/tvUserNameCompose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/ivProfileImageCompose"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/tvUserScreenNameCompose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvUserNameCompose"
+        android:layout_toRightOf="@+id/ivProfileImageCompose"
+        android:text="TextView" />
+
+    <EditText
+        android:id="@+id/etComposeTweet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/ivProfileImageCompose"
+        android:ems="10"
+        android:hint="@string/compose_tweet_hint" >
+
+        <requestFocus />
+    </EditText>
+
+</RelativeLayout>
