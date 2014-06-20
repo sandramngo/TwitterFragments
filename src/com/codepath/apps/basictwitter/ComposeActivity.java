@@ -36,7 +36,7 @@ public class ComposeActivity extends Activity {
         
         thisUser = (User) getIntent().getExtras().getSerializable("user");
         tvUserName.setText(thisUser.getName());
-        tvUserScreenName.setText(thisUser.getScreenName());
+        tvUserScreenName.setText("@" + thisUser.getScreenName());
         ivProfileImage.setImageResource(android.R.color.transparent);
         ImageLoader loader = ImageLoader.getInstance();
         loader.displayImage(thisUser.getProfileImageUrl(), ivProfileImage);

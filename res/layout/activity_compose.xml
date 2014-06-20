@@ -2,12 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="${packageName}.${activityClass}" >
+    tools:context="${packageName}.${activityClass}"
+    android:background="#ffffff"
+    android:padding="10dp" >
 
     <ImageView
         android:id="@+id/ivProfileImageCompose"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:src="@drawable/ic_launcher" />
@@ -18,7 +20,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/ivProfileImageCompose"
-        android:text="TextView" />
+        android:text="TextView"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:textSize="14sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tvUserScreenNameCompose"
@@ -26,7 +32,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvUserNameCompose"
         android:layout_toRightOf="@+id/ivProfileImageCompose"
-        android:text="TextView" />
+        android:text="TextView"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:textSize="12sp" />
 
     <EditText
         android:id="@+id/etComposeTweet"
@@ -35,7 +44,10 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/ivProfileImageCompose"
         android:ems="10"
-        android:hint="@string/compose_tweet_hint" >
+        android:hint="@string/compose_tweet_hint" 
+        android:background="#00000000"
+        android:textSize="14sp"
+        android:layout_marginTop="5dp">
 
         <requestFocus />
     </EditText>
