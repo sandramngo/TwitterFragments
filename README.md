@@ -1,7 +1,7 @@
 Simple-Twitter-Client
 ===============
 
-Time spent: 7 hours spent in total
+Time spent: 9 hours spent in total
 
 Completed user stories:
 
