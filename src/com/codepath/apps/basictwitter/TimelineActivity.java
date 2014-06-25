@@ -32,6 +32,9 @@ public class TimelineActivity extends Activity implements OnItemClickListener {
     
     int maxId;
     
+    public static final int COMPOSE_ACTIVITY_REQUEST_CODE = 1;
+    public static final int TWEET_DETAIL_ACTIVITY_REQUEST_CODE = 2;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,12 +79,6 @@ public class TimelineActivity extends Activity implements OnItemClickListener {
         });
     }
     
-    @Override
-    protected void onResume() {
-        super.onResume();
-        populateTimeline(1, 0);
-    }
-    
     public void populateTimeline(final int page, long maxId) {
         Log.d("debug", page+"");
         client.getHomeTimeline(new JsonHttpResponseHandler() {
@@ -91,9 +88,6 @@ public class TimelineActivity extends Activity implements OnItemClickListener {
                     aTweets.clear();
                 }
                 aTweets.addAll(Tweet.fromJSONArray(json));
-                
-             //   Log.d("debug", json.toString());
-                
             }
             @Override
             public void onFailure(Throwable e, String s) {
@@ -113,7 +107,7 @@ public class TimelineActivity extends Activity implements OnItemClickListener {
         if (thisUser != null) {
             Intent i = new Intent(this, ComposeActivity.class);
             i.putExtra("user", thisUser);
-            startActivityForResult(i, 5);
+            startActivityForResult(i, COMPOSE_ACTIVITY_REQUEST_CODE);
         }
     }
 
@@ -123,7 +117,11 @@ public class TimelineActivity extends Activity implements OnItemClickListener {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 5) {
+        if (requestCode == COMPOSE_ACTIVITY_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                populateTimeline(1, 0);
+            }
+        } else if (requestCode == TWEET_DETAIL_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 populateTimeline(1, 0);
             }
@@ -149,7 +147,7 @@ public class TimelineActivity extends Activity implements OnItemClickListener {
         Tweet tweet = tweets.get(position);
         Intent i = new Intent(this, TweetDetailActivity.class);
         i.putExtra("tweet", tweet);
-        startActivity(i);
+        startActivityForResult(i, TWEET_DETAIL_ACTIVITY_REQUEST_CODE);
         
     }
 }

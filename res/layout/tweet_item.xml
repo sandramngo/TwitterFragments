@@ -4,10 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="10dp"
-    android:background="#ffffff" >
+    android:background="#ffffff" 
+    android:descendantFocusability="blocksDescendants" >
 
     <ImageView
-        android:id="@+id/ivProfileImageCompose"
+        android:id="@+id/ivProfileImage"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignParentLeft="true"
@@ -19,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/ivProfileImageCompose"
+        android:layout_toRightOf="@+id/ivProfileImage"
         android:text="@string/foo_label"
         android:layout_marginRight="5dp"
         android:layout_marginLeft="5dp"
@@ -31,12 +32,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvUserName"
-        android:layout_toRightOf="@+id/ivProfileImageCompose"
+        android:layout_toRightOf="@+id/ivProfileImage"
         android:text="@string/tweet_body_label"
         android:autoLink="all"
      	android:linksClickable="true" 
         android:layout_marginLeft="5dp" 
-        android:textSize="12sp"/>
+        android:textSize="12sp"
+        android:descendantFocusability="blocksDescendants"
+        />
 
     <TextView
         android:id="@+id/tvUserScreenName"
@@ -58,5 +61,35 @@
         android:gravity="right"
         android:text=""
         android:textSize="12sp"/>
-
+    
+   <!--  <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/tvBody"
+        android:layout_marginTop="10dp">
+        <ImageButton 
+            android:id="@+id/ibReply"
+            android:src="@drawable/reply_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" 
+            android:background="#ffffff"
+            android:layout_weight=".33"/>
+        <ImageButton
+            android:id="@+id/ibRetweet"
+            android:src="@drawable/retweet_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:layout_weight=".33"/>
+        <ImageButton
+            android:id="@+id/ibStar"
+            android:src="@drawable/star_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight=".33"
+            android:background="#ffffff"/>
+        
+    </LinearLayout>
+ -->
 </RelativeLayout>

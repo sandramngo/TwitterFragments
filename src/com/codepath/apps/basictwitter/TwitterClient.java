@@ -49,6 +49,14 @@ public class TwitterClient extends OAuthBaseClient {
         client.post(apiUrl, params, handler);
     }
     
+    public void replyTweet(AsyncHttpResponseHandler handler, String replyText, String id) {
+        String apiUrl = getApiUrl("statuses/update.json");
+        RequestParams params = new RequestParams();
+        params.put("status", replyText);
+        params.put("in_reply_to_status_id", id);
+        client.post(apiUrl,  params, handler);
+    }
+    
     public void getVerifyCredentials(AsyncHttpResponseHandler handler) {
         String apiUrl = getApiUrl("account/verify_credentials.json");
         client.get(apiUrl, null, handler);

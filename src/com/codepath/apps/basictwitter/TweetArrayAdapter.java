@@ -35,7 +35,7 @@ public class TweetArrayAdapter extends ArrayAdapter<Tweet> {
             v = convertView;
         }
         
-        ImageView ivProfileImage = (ImageView) v.findViewById(R.id.ivProfileImageCompose);
+        ImageView ivProfileImage = (ImageView) v.findViewById(R.id.ivProfileImage);
         TextView tvUserName = (TextView) v.findViewById(R.id.tvUserName);
         TextView tvBody = (TextView) v.findViewById(R.id.tvBody);
         TextView tvUserScreenName = (TextView) v.findViewById(R.id.tvUserScreenName);

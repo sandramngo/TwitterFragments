@@ -3,6 +3,8 @@ package com.codepath.apps.basictwitter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import android.text.format.DateUtils;
 
@@ -17,7 +19,7 @@ public class TweetUtils {
             long dateMillis = sf.parse(rawJsonDate).getTime();
             relativeDate = DateUtils.getRelativeTimeSpanString(dateMillis,
                     System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS, DateUtils.FORMAT_ABBREV_ALL).toString();
-            int firstSpace = relativeDate.indexOf(" ");
+            int firstSpace = relativeDate.indexOf(" ");  
             relativeDate = relativeDate.substring(0, firstSpace) + relativeDate.charAt(firstSpace + 1);
         } catch (ParseException e) {
             e.printStackTrace();

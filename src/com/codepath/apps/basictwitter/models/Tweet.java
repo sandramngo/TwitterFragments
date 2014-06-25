@@ -7,6 +7,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
+
 public class Tweet implements Serializable {
     private String body;
     private long uid;
@@ -49,6 +51,7 @@ public class Tweet implements Serializable {
             JSONObject tweetJson = null;
             try {
                 tweetJson = json.getJSONObject(i);
+                Log.d("debug", tweetJson.toString());
             } catch (JSONException e) {
                 e.printStackTrace();
                 continue;

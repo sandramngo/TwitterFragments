@@ -1,57 +1,80 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="fill_parent"
     tools:context="${packageName}.${activityClass}"
     android:background="#ffffff"
-    android:padding="10dp" >
+    android:padding="10dp"
+    android:orientation="vertical" >
+    
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1">
 
-    <ImageView
-        android:id="@+id/ivProfileImageDetail"
-        android:layout_width="wrap_content"
+	    <ImageView
+	        android:id="@+id/ivProfileImageDetail"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_alignParentTop="true"
+	        android:src="@drawable/ic_launcher" />
+	
+	    <TextView
+	        android:id="@+id/tvUserNameDetail"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentTop="true"
+	        android:layout_toRightOf="@+id/ivProfileImageDetail"
+	        android:text="TextView"
+	        android:layout_marginLeft="5dp"
+	        android:layout_marginRight="5dp" 
+	        android:textSize="16sp"
+	        android:textStyle="bold"/>
+	
+	    <TextView
+	        android:id="@+id/tvUserScreenNameDetail"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBaseline="@+id/tvUserNameDetail"
+	        android:layout_toRightOf="@+id/tvUserNameDetail"
+	        android:text="TextView"
+	        android:textSize="14sp" />
+	
+	    <TextView
+	        android:id="@+id/tvBodyDetail"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/ivProfileImageDetail"
+	        android:text="TextView" 
+	        android:textSize="14sp"
+	        android:layout_marginTop="5dp"
+	        android:autoLink="all"
+	     	android:linksClickable="true" />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:src="@drawable/ic_launcher" />
+        android:orientation="horizontal">
+	    <EditText
+	        android:id="@+id/etReplyToTweet"
+	        android:layout_width="0dip"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:hint="Reply"
+	        android:textSize="12sp"
+	        android:singleLine="true"/>
+	    <Button
+	        android:id="@+id/btnReplyToTweet"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:background="#ffffff"
+	        android:textAllCaps="true"
+	        android:text="Tweet"
+	        android:textSize="12sp"
+	        android:onClick="onReplyToTweet"/>
+        
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/tvUserNameDetail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/ivProfileImageDetail"
-        android:text="TextView"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp" 
-        android:textSize="12sp"
-        android:textStyle="bold"/>
-
-    <TextView
-        android:id="@+id/tvUserScreenNameDetail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/tvUserNameDetail"
-        android:text="TextView"
-        android:textSize="12sp" />
-
-    <TextView
-        android:id="@+id/tvBodyDetail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/ivProfileImageDetail"
-        android:text="TextView" 
-        android:textSize="14sp"
-        android:layout_marginTop="5dp"/>
-
-    <TextView
-        android:id="@+id/tvCreatedAt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:text="TextView"
-        android:textSize="12sp" />
-
-</RelativeLayout>
+</LinearLayout>
