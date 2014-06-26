@@ -120,10 +120,12 @@ public class TimelineActivity extends Activity implements OnItemClickListener {
         if (requestCode == COMPOSE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 populateTimeline(1, 0);
+                lvTweets.setSelection(0);
             }
         } else if (requestCode == TWEET_DETAIL_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 populateTimeline(1, 0);
+                lvTweets.setSelection(0);
             }
         }
     }
