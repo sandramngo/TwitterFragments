@@ -27,5 +27,6 @@ Since I was out of town for most days last week, I didn't have as much time as I
 Walkthrough of all user stories:
 
 ![Video Walkthrough] 
+(TwitterAppWalkthrough.gif)
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
