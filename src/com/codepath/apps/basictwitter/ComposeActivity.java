@@ -3,8 +3,9 @@ package com.codepath.apps.basictwitter;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -22,6 +23,7 @@ public class ComposeActivity extends Activity {
     private TextView tvUserName;
     private TextView tvUserScreenName;
     private ImageView ivProfileImage;
+    private TextView tvCharCount;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,7 @@ public class ComposeActivity extends Activity {
         tvUserName = (TextView) findViewById(R.id.tvUserNameCompose);
         tvUserScreenName = (TextView) findViewById(R.id.tvUserScreenNameCompose);
         ivProfileImage = (ImageView) findViewById(R.id.ivProfileImageCompose);
+        tvCharCount = (TextView) findViewById(R.id.tvCharsCount);
         
         thisUser = (User) getIntent().getExtras().getSerializable("user");
         tvUserName.setText(thisUser.getName());
@@ -40,6 +43,24 @@ public class ComposeActivity extends Activity {
         ivProfileImage.setImageResource(android.R.color.transparent);
         ImageLoader loader = ImageLoader.getInstance();
         loader.displayImage(thisUser.getProfileImageUrl(), ivProfileImage);
+        
+        etTweet.addTextChangedListener(new TextWatcher() {
+           @Override
+            public void onTextChanged(CharSequence s, int start, int before,
+                    int count) {
+               int remaining = 140 - etTweet.getText().toString().length();
+               tvCharCount.setText(remaining + "");
+            }
+           
+           @Override
+            public void afterTextChanged(Editable s) {
+            }
+           
+           @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                    int after) {
+            }
+        });
     }
 
     @Override

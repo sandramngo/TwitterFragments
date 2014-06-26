@@ -4,6 +4,8 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
 import android.widget.Button;
@@ -24,6 +26,7 @@ public class TweetDetailActivity extends Activity {
     private EditText etReplyToTweet;
     private Button btnReplyToTweet;
     private TwitterClient client;
+    private TextView tvRemainingCharCount;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,7 @@ public class TweetDetailActivity extends Activity {
         ivProfileImage.setImageResource(android.R.color.transparent);
         etReplyToTweet = (EditText) findViewById(R.id.etReplyToTweet);
         btnReplyToTweet = (Button) findViewById(R.id.btnReplyToTweet);
+        tvRemainingCharCount = (TextView) findViewById(R.id.tvRemainingCharsCount);
         
         this.tweet = (Tweet) getIntent().getSerializableExtra("tweet");
         tvUserName.setText(tweet.getUser().getName());
@@ -51,7 +55,7 @@ public class TweetDetailActivity extends Activity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 String replyText = etReplyToTweet.getText().toString();
-                String replyToUser = "@" + tweet.getUser().getScreenName();
+                String replyToUser = "@" + tweet.getUser().getScreenName() + " ";
                 if (hasFocus && !replyText.startsWith(replyToUser)) {
                     etReplyToTweet.setText(replyToUser);
 
@@ -61,12 +65,23 @@ public class TweetDetailActivity extends Activity {
             }
         });
         
-//        Typeface gothamNarrow = Typeface.createFromAsset(getAssets(), "fonts/GothamNarrow-Medium.otf");
-//        tvUserName.setTypeface(gothamNarrow);
-//        tvUserScreenName.setTypeface(gothamNarrow);
-//        tvBody.setTypeface(gothamNarrow);
-//        btnReplyToTweet.setTypeface(gothamNarrow);
-//        etReplyToTweet.setTypeface(gothamNarrow);
+        etReplyToTweet.addTextChangedListener(new TextWatcher() {
+           @Override
+            public void onTextChanged(CharSequence s, int start, int before,
+                    int count) {
+               int remaining = 140 - etReplyToTweet.getText().toString().length();
+               tvRemainingCharCount.setText(remaining + "");
+            }
+           
+           @Override
+            public void afterTextChanged(Editable s) {
+            }
+           
+           @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                    int after) {
+            }
+        });
     }
     
     public void onReplyToTweet(View view) {

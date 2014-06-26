@@ -7,6 +7,7 @@ import org.json.JSONObject;
 
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Column.ForeignKeyAction;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
 
@@ -18,9 +19,25 @@ import com.activeandroid.query.Select;
  */
 @Table(name = "items")
 public class TweetModel extends Model {
+    // This is how you avoid duplicates
+    @Column(name = "remote_id", unique = true, onUniqueConflict = Column.ConflictAction.REPLACE)
+    public int remoteId;
+    
 	// Define table fields
 	@Column(name = "name")
 	private String name;
+	
+    @Column(name = "User", onUpdate = ForeignKeyAction.CASCADE, onDelete = ForeignKeyAction.CASCADE)
+    public UserModel user;
+    
+    @Column(name = "body")
+    public String body;
+    
+    @Column(name = "uid")
+    public long uid;
+    
+    @Column(name = "created_at")
+    public String createdAt;
 	
 	public TweetModel() {
 		super();
@@ -32,6 +49,10 @@ public class TweetModel extends Model {
 
 		try {
 			this.name = object.getString("title");
+			this.body = object.getString("text");     
+			this.uid = object.getLong("id");
+			this.createdAt = object.getString("created_at");
+			this.user = new UserModel(object.getJSONObject("user"));
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

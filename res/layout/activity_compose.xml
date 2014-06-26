@@ -20,11 +20,23 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/ivProfileImageCompose"
-        android:text="TextView"
+        android:text=""
         android:layout_marginRight="5dp"
         android:layout_marginLeft="5dp"
         android:textSize="14sp"
         android:textStyle="bold" />
+    
+    <TextView
+        android:id="@+id/tvCharsCount"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/tvUserNameCompose"
+        android:layout_alignParentRight="true"
+        android:layout_alignBaseline="@+id/tvUserNameCompose"
+        android:text="@string/max_chars"
+        android:textSize="12sp"
+        android:layout_margin="2dp"
+        android:gravity="right"/>
 
     <TextView
         android:id="@+id/tvUserScreenNameCompose"
@@ -32,14 +44,15 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvUserNameCompose"
         android:layout_toRightOf="@+id/ivProfileImageCompose"
-        android:text="TextView"
+        android:text=""
         android:layout_marginRight="5dp"
         android:layout_marginLeft="5dp"
         android:textSize="12sp" />
+    
 
     <EditText
         android:id="@+id/etComposeTweet"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/ivProfileImageCompose"
@@ -47,9 +60,9 @@
         android:hint="@string/compose_tweet_hint" 
         android:background="#00000000"
         android:textSize="14sp"
-        android:layout_marginTop="5dp">
+        android:layout_marginTop="5dp"
+        android:maxLength="140">
 
-        <requestFocus />
     </EditText>
 
 </RelativeLayout>

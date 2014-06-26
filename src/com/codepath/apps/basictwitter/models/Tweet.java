@@ -51,7 +51,6 @@ public class Tweet implements Serializable {
             JSONObject tweetJson = null;
             try {
                 tweetJson = json.getJSONObject(i);
-                Log.d("debug", tweetJson.toString());
             } catch (JSONException e) {
                 e.printStackTrace();
                 continue;

@@ -20,6 +20,15 @@ public class TweetUtils {
             relativeDate = DateUtils.getRelativeTimeSpanString(dateMillis,
                     System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS, DateUtils.FORMAT_ABBREV_ALL).toString();
             int firstSpace = relativeDate.indexOf(" ");  
+            int firstInt = 0;
+            char[] crs = relativeDate.toCharArray();
+            for (int i = 0; i < crs.length; i++) {
+                if (Character.isDigit(crs[i])) {
+                   firstInt = i;
+                   break;
+                }
+            }
+            firstSpace = relativeDate.indexOf(" ", firstInt);
             relativeDate = relativeDate.substring(0, firstSpace) + relativeDate.charAt(firstSpace + 1);
         } catch (ParseException e) {
             e.printStackTrace();

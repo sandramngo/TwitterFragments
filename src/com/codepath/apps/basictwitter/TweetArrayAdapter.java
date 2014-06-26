@@ -1,14 +1,12 @@
 package com.codepath.apps.basictwitter;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
 
 import android.content.Context;
-import android.text.format.DateUtils;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -49,6 +47,7 @@ public class TweetArrayAdapter extends ArrayAdapter<Tweet> {
         tvUserScreenName.setText("@" + tweet.getUser().getScreenName());
         tvBody.setText(tweet.getBody());
         tvTimestamp.setText(TweetUtils.getRelativeTimeAgo(tweet.getCreatedAt()));
+
         return v;
     }
     
