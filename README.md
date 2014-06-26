@@ -1,7 +1,7 @@
 Simple-Twitter-Client
 ===============
 
-Time spent: 9 hours spent in total
+Time spent: 11 hours spent in total
 
 Completed user stories:
 
@@ -15,17 +15,14 @@ Completed user stories:
    * [x] User can click a “Compose” icon in the Action Bar on the top right
    * [x] User can then enter a new tweet and post this to twitter
    * [x] User is taken back to home timeline with new tweet visible in timeline
-   * [] Optional: User can see a counter with total number of characters left for tweet
+   * [x] Optional: User can see a counter with total number of characters left for tweet
  * [x] Advanced: User can refresh tweets timeline by pulling down to refresh (i.e pull-to-refresh)
- * [] Advanced: User can open the twitter app offline and see last loaded tweets
-   * []Tweets are persisted into sqlite and can be displayed from the local DB
  * [x] Advanced: User can tap a tweet to display a "detailed" view of that tweet
  * [x] Advanced: User can select "reply" from detail view to respond to a tweet
  * [x] Advanced: Improve the user interface and theme the app to feel "twitter branded"
- * [] Bonus: User can see embedded image media within the tweet detail view
- * [] Bonus: Compose activity is replaced with a modal overlay
  
 Notes:
+Since I was out of town for most days last week, I didn't have as much time as I did for the other projects. I'm working on the persistence of tweets now but I probably won't finish in time for the deadline.
 
 Walkthrough of all user stories:
 
