@@ -15,5 +15,7 @@
     <string name="title_activity_tweet_detail">Tweet</string>
     <string name="reply">Reply</string>
     <string name="max_chars">140</string>
+    <string name="action_profile">Profile</string>
+    <string name="title_activity_profile">ProfileActivity</string>
 
 </resources>
