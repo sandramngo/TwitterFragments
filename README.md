@@ -30,6 +30,5 @@ Completed user stories:
 Walkthrough of all user stories:
 
 ![Video Walkthrough] 
-(TwitterAppWalkthrough.gif)
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
