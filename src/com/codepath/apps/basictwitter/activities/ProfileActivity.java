@@ -40,6 +40,7 @@ public class ProfileActivity extends FragmentActivity implements OnTweetClickedL
         tvFollowing = (TextView) findViewById(R.id.tvFollowing);
         
         populateProfileHeader();
+        getActionBar().setTitle("@" + thisUser.getScreenName());
         
      // Within the activity
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();

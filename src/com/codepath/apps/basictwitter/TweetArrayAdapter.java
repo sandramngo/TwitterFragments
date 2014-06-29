@@ -2,15 +2,25 @@ package com.codepath.apps.basictwitter;
 
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.codepath.apps.basictwitter.activities.ProfileActivity;
 import com.codepath.apps.basictwitter.models.Tweet;
+import com.codepath.apps.basictwitter.models.User;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class TweetArrayAdapter extends ArrayAdapter<Tweet> {
@@ -21,7 +31,7 @@ public class TweetArrayAdapter extends ArrayAdapter<Tweet> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Tweet tweet = getItem(position);
+        final Tweet tweet = getItem(position);
         View v;
         
         if (convertView == null) {
@@ -41,6 +51,13 @@ public class TweetArrayAdapter extends ArrayAdapter<Tweet> {
         ImageLoader imageLoader = ImageLoader.getInstance();
         imageLoader.displayImage(tweet.getUser().getProfileImageUrl(), ivProfileImage);
         
+        ivProfileImage.setOnClickListener(new OnClickListener() {
+           @Override
+            public void onClick(View v) {
+               onProfileClick(tweet, v);
+            } 
+        });
+        
         tvUserName.setText(tweet.getUser().getName());
         tvUserScreenName.setText("@" + tweet.getUser().getScreenName());
         tvBody.setText(tweet.getBody());
@@ -49,5 +66,22 @@ public class TweetArrayAdapter extends ArrayAdapter<Tweet> {
         return v;
     }
     
-    
+    public void onProfileClick(Tweet tweet, final View v) {
+        TwitterApplication.getRestClient().getLookupUser(new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(JSONArray json) {
+                if (json.length() > 0) {
+                    try {
+                        JSONObject object = json.getJSONObject(0);
+                        User user = User.fromJSON(object);
+                        Intent i = new Intent(v.getContext(), ProfileActivity.class);
+                        i.putExtra("user", user);
+                        v.getContext().startActivity(i); 
+                    } catch (JSONException e) {
+                        
+                    }
+                }
+            }
+        }, tweet.getUser().getScreenName());
+    }
 }

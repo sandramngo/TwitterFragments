@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.codepath.apps.basictwitter.R;
 import com.codepath.apps.basictwitter.TwitterApplication;
@@ -41,7 +42,7 @@ public class TimelineActivity extends FragmentActivity implements OnTweetClicked
               thisUser = User.fromJSON(json);
               getActionBar().setTitle("@" + thisUser.getScreenName());
           }
-      });
+        });
     }
     
     @Override
