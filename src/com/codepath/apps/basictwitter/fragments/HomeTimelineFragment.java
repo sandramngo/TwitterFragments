@@ -8,6 +8,7 @@ import android.widget.AdapterView.OnItemClickListener;
 
 import com.codepath.apps.basictwitter.TwitterApplication;
 import com.codepath.apps.basictwitter.TwitterClient;
+import com.codepath.apps.basictwitter.listeners.EndlessScrollListener;
 import com.codepath.apps.basictwitter.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -19,17 +20,8 @@ public class HomeTimelineFragment extends TweetsListFragment implements OnItemCl
         super.onCreate(savedInstanceState);
         client = TwitterApplication.getRestClient();
         populateTimeline(1, 0);
+       
         
-//        lvTweets.setOnScrollListener(new EndlessScrollListener() {
-//            @Override
-//            public void onLoadMore(int page, int totalItemsCount) {
-//                if (aTweets.getCount() > 0) {
-//                    Tweet lastTweet = aTweets.getItem(aTweets.getCount() - 1);
-//                    
-//                    customLoadMoreDataFromApi(page, lastTweet.getUid() - 1); 
-//                }
-//            }
-//         });
 //        
 //        lvTweets.setOnRefreshListener(new OnRefreshListener() {
 //            @Override
@@ -69,6 +61,7 @@ public class HomeTimelineFragment extends TweetsListFragment implements OnItemCl
         }, maxId);
     }
     
+    @Override
     public void customLoadMoreDataFromApi(int page, long maxId) {
         populateTimeline(page, maxId);
     }

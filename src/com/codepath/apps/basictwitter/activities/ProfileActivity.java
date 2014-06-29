@@ -26,6 +26,7 @@ public class ProfileActivity extends FragmentActivity implements OnTweetClickedL
     TextView tvFollowing;
 
     public static final int COMPOSE_ACTIVITY_REQUEST_CODE = 1;
+    public static final int TWEET_DETAIL_ACTIVITY_REQUEST_CODE = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,8 +76,9 @@ public class ProfileActivity extends FragmentActivity implements OnTweetClickedL
     
     @Override
     public void onTweetClicked(Tweet tweet) {
-        // TODO Auto-generated method stub
-        
+        Intent i = new Intent(this, TweetDetailActivity.class);
+        i.putExtra("tweet", tweet);
+        startActivityForResult(i, TWEET_DETAIL_ACTIVITY_REQUEST_CODE);
     }
     
 }

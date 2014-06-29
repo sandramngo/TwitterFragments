@@ -28,17 +28,6 @@ public class MentionsTimelineFragment extends TweetsListFragment implements OnIt
         super.onCreate(savedInstanceState);
         client = TwitterApplication.getRestClient();
         populateTimeline(1, 0);
-        
-//        lvTweets.setOnScrollListener(new EndlessScrollListener() {
-//            @Override
-//            public void onLoadMore(int page, int totalItemsCount) {
-//                if (aTweets.getCount() > 0) {
-//                    Tweet lastTweet = aTweets.getItem(aTweets.getCount() - 1);
-//                    
-//                    customLoadMoreDataFromApi(page, lastTweet.getUid() - 1); 
-//                }
-//            }
-//         });
 //        
 //        lvTweets.setOnRefreshListener(new OnRefreshListener() {
 //            @Override
@@ -62,6 +51,7 @@ public class MentionsTimelineFragment extends TweetsListFragment implements OnIt
     }
     
     public void populateTimeline(final int page, long maxId) {
+        Log.d("debug", "Mentions populate page " + page);
         client.getMentionsTimeline(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(JSONArray json) {
@@ -75,16 +65,17 @@ public class MentionsTimelineFragment extends TweetsListFragment implements OnIt
                 Log.d("debug", e.toString());
                 Log.d("debug", s.toString());
             }
-        });
+        }, maxId);
     }
     
+    @Override
     public void customLoadMoreDataFromApi(int page, long maxId) {
         populateTimeline(page, maxId);
     }
     
     public void fetchTimelineAsync(int page) {
         clearTweets();
-        client.getHomeTimeline(new JsonHttpResponseHandler() {
+        client.getMentionsTimeline(new JsonHttpResponseHandler() {
             public void onSuccess(JSONArray json) {
                 addAll(Tweet.fromJSONArray(json));
                // lvTweets.onRefreshComplete();

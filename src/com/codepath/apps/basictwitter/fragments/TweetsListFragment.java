@@ -10,20 +10,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.codepath.apps.basictwitter.R;
 import com.codepath.apps.basictwitter.TweetArrayAdapter;
+import com.codepath.apps.basictwitter.listeners.EndlessScrollListener;
 import com.codepath.apps.basictwitter.models.Tweet;
 
 public class TweetsListFragment extends Fragment implements OnItemClickListener {
-    private ArrayList<Tweet> tweets;
-    private TweetArrayAdapter aTweets;
-    private ListView lvTweets;
+    protected ArrayList<Tweet> tweets;
+    protected TweetArrayAdapter aTweets;
+    protected ListView lvTweets;
     
     private OnTweetClickedListener listener;
     public interface OnTweetClickedListener {
@@ -48,6 +45,16 @@ public class TweetsListFragment extends Fragment implements OnItemClickListener 
         lvTweets = (ListView) v.findViewById(R.id.lvTweets);
         lvTweets.setAdapter(aTweets);
         lvTweets.setOnItemClickListener(this);
+        lvTweets.setOnScrollListener(new EndlessScrollListener() {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+                if (aTweets.getCount() > 0) {
+                    Tweet lastTweet = aTweets.getItem(aTweets.getCount() - 1);
+                    
+                    customLoadMoreDataFromApi(page, lastTweet.getUid() - 1); 
+                }
+            }
+         });
         
         // Return view
         return v;
@@ -78,4 +85,8 @@ public class TweetsListFragment extends Fragment implements OnItemClickListener 
         Tweet tweet = tweets.get(position);
         listener.onTweetClicked(tweet);
     }
+    
+    public void customLoadMoreDataFromApi(int page, long maxId) {}
+    
+    
 }

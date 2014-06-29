@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.codepath.apps.basictwitter.TwitterApplication;
 import com.codepath.apps.basictwitter.TwitterClient;
+import com.codepath.apps.basictwitter.listeners.EndlessScrollListener;
 import com.codepath.apps.basictwitter.models.Tweet;
 import com.codepath.apps.basictwitter.models.User;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -34,6 +35,7 @@ public class UserTimelineFragment extends TweetsListFragment {
     }
     
     public void populateTimeline(final int page, long maxId) {
+        Log.d("debug", "User populate page " + page);
         client.getUserTimeline(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(JSONArray json) {
@@ -47,7 +49,26 @@ public class UserTimelineFragment extends TweetsListFragment {
                 Log.d("debug", e.toString());
                 Log.d("debug", s.toString());
             }
-        }, user.getUid() + "");
+        }, user.getUid() + "", maxId);
+    }
+    
+    @Override
+    public void customLoadMoreDataFromApi(int page, long maxId) {
+        populateTimeline(page, maxId);
+    }
+    
+    public void fetchTimelineAsync(int page) {
+        clearTweets();
+        client.getUserTimeline(new JsonHttpResponseHandler() {
+            public void onSuccess(JSONArray json) {
+                addAll(Tweet.fromJSONArray(json));
+               // lvTweets.onRefreshComplete();
+            }
+
+            public void onFailure(Throwable e) {
+                Log.d("DEBUG", "Fetch timeline error: " + e.toString());
+            }
+        }, user.getUid() + "", 0);
     }
 
 }
