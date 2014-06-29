@@ -9,7 +9,7 @@ Completed user stories:
  * [x] Required: User can switch between Timeline and Mention views using tabs.
    * [x] Required: User can view their home timeline tweets.
    * [x] Required: User can view the recent mentions of their username.
-   * [] Required: User can scroll to bottom of either of these lists and new tweets will load ("infinite scroll")
+   * [x] Required: User can scroll to bottom of either of these lists and new tweets will load ("infinite scroll")
    * [] Optional: Implement tabs in a gingerbread-compatible approach
  * [x] Required: User can navigate to view their own profile
    * [x] Required: User can see picture, tagline, # of followers, # of following, and tweets on their profile.
