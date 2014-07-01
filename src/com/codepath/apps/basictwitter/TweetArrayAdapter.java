@@ -8,7 +8,6 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.codepath.apps.basictwitter.activities.ProfileActivity;
+import com.codepath.apps.basictwitter.activities.TweetDetailActivity;
 import com.codepath.apps.basictwitter.models.Tweet;
 import com.codepath.apps.basictwitter.models.User;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -59,9 +59,33 @@ public class TweetArrayAdapter extends ArrayAdapter<Tweet> {
         });
         
         tvUserName.setText(tweet.getUser().getName());
+        tvUserName.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onTweetClick(tweet, v);
+            }
+        });
         tvUserScreenName.setText("@" + tweet.getUser().getScreenName());
+        tvUserScreenName.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onTweetClick(tweet, v);
+            }
+        });
         tvBody.setText(tweet.getBody());
+        tvBody.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onTweetClick(tweet, v);
+            }
+        });
         tvTimestamp.setText(TweetUtils.getRelativeTimeAgo(tweet.getCreatedAt()));
+        tvTimestamp.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onTweetClick(tweet, v);
+            }
+        });
 
         return v;
     }
@@ -83,5 +107,11 @@ public class TweetArrayAdapter extends ArrayAdapter<Tweet> {
                 }
             }
         }, tweet.getUser().getScreenName());
+    }
+    
+    public void onTweetClick(Tweet tweet, final View v) {
+        Intent i = new Intent(v.getContext(), TweetDetailActivity.class);
+        i.putExtra("tweet", tweet);
+        v.getContext().startActivity(i);    
     }
 }

@@ -50,6 +50,7 @@ public class MentionsTimelineFragment extends TweetsListFragment implements OnIt
 //        });
     }
     
+    @Override
     public void populateTimeline(final int page, long maxId) {
         Log.d("debug", "Mentions populate page " + page);
         client.getMentionsTimeline(new JsonHttpResponseHandler() {
@@ -73,12 +74,13 @@ public class MentionsTimelineFragment extends TweetsListFragment implements OnIt
         populateTimeline(page, maxId);
     }
     
+    @Override
     public void fetchTimelineAsync(int page) {
         clearTweets();
         client.getMentionsTimeline(new JsonHttpResponseHandler() {
             public void onSuccess(JSONArray json) {
-                addAll(Tweet.fromJSONArray(json));
-               // lvTweets.onRefreshComplete();
+               addAll(Tweet.fromJSONArray(json));
+               onRefreshComplete();
             }
 
             public void onFailure(Throwable e) {

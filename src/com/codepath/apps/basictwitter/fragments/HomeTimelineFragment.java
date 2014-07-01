@@ -44,6 +44,7 @@ public class HomeTimelineFragment extends TweetsListFragment implements OnItemCl
 //        });
     }
     
+    @Override
     public void populateTimeline(final int page, long maxId) {
         client.getHomeTimeline(new JsonHttpResponseHandler() {
             @Override
@@ -66,12 +67,13 @@ public class HomeTimelineFragment extends TweetsListFragment implements OnItemCl
         populateTimeline(page, maxId);
     }
     
+    @Override
     public void fetchTimelineAsync(int page) {
         clearTweets();
         client.getHomeTimeline(new JsonHttpResponseHandler() {
             public void onSuccess(JSONArray json) {
                 addAll(Tweet.fromJSONArray(json));
-               // lvTweets.onRefreshComplete();
+                onRefreshComplete();
             }
 
             public void onFailure(Throwable e) {

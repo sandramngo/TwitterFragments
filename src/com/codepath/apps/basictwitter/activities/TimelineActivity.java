@@ -9,13 +9,13 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.codepath.apps.basictwitter.R;
 import com.codepath.apps.basictwitter.TwitterApplication;
 import com.codepath.apps.basictwitter.TwitterClient;
 import com.codepath.apps.basictwitter.fragments.HomeTimelineFragment;
 import com.codepath.apps.basictwitter.fragments.MentionsTimelineFragment;
+import com.codepath.apps.basictwitter.fragments.TweetsListFragment;
 import com.codepath.apps.basictwitter.fragments.TweetsListFragment.OnTweetClickedListener;
 import com.codepath.apps.basictwitter.listeners.FragmentTabListener;
 import com.codepath.apps.basictwitter.models.Tweet;
@@ -26,6 +26,7 @@ public class TimelineActivity extends FragmentActivity implements OnTweetClicked
     private User thisUser;
     private TwitterClient client;
     int maxId;
+    private TweetsListFragment homeFragment;
     
     public static final int COMPOSE_ACTIVITY_REQUEST_CODE = 1;
     public static final int TWEET_DETAIL_ACTIVITY_REQUEST_CODE = 2;
@@ -43,6 +44,7 @@ public class TimelineActivity extends FragmentActivity implements OnTweetClicked
               getActionBar().setTitle("@" + thisUser.getScreenName());
           }
         });
+        
     }
     
     @Override
@@ -59,7 +61,6 @@ public class TimelineActivity extends FragmentActivity implements OnTweetClicked
         Tab homeTab = actionBar
             .newTab()
             .setText("Home")
-            .setIcon(R.drawable.ic_home)
             .setTag("HomeTimelineFragment")
             .setTabListener(
                 new FragmentTabListener<HomeTimelineFragment>(R.id.flContainer, this, "home",
@@ -71,7 +72,6 @@ public class TimelineActivity extends FragmentActivity implements OnTweetClicked
         Tab mentionsTab = actionBar
             .newTab()
             .setText("Mentions")
-            .setIcon(R.drawable.ic_mentions)
             .setTag("MentionsTimelineFragment")
             .setTabListener(
                 new FragmentTabListener<MentionsTimelineFragment>(R.id.flContainer, this, "mentions",
@@ -102,18 +102,16 @@ public class TimelineActivity extends FragmentActivity implements OnTweetClicked
     }
 
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        if (requestCode == COMPOSE_ACTIVITY_REQUEST_CODE) {
-//            if (resultCode == RESULT_OK) {
-//                populateTimeline(1, 0);
-//                lvTweets.setSelection(0);
-//            }
-//        } else if (requestCode == TWEET_DETAIL_ACTIVITY_REQUEST_CODE) {
-//            if (resultCode == RESULT_OK) {
-//                populateTimeline(1, 0);
-//                lvTweets.setSelection(0);
-//            }
-//        }
-//    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == COMPOSE_ACTIVITY_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                ((TweetsListFragment) getSupportFragmentManager().findFragmentByTag("home")).refreshTimeline();
+            }
+        } else if (requestCode == TWEET_DETAIL_ACTIVITY_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                ((TweetsListFragment) getSupportFragmentManager().findFragmentByTag("home")).refreshTimeline();
+            }
+        }
+    }
 }

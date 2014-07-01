@@ -34,6 +34,7 @@ public class UserTimelineFragment extends TweetsListFragment {
         populateTimeline(1, 0);
     }
     
+    @Override
     public void populateTimeline(final int page, long maxId) {
         Log.d("debug", "User populate page " + page);
         client.getUserTimeline(new JsonHttpResponseHandler() {
@@ -57,12 +58,13 @@ public class UserTimelineFragment extends TweetsListFragment {
         populateTimeline(page, maxId);
     }
     
+    @Override
     public void fetchTimelineAsync(int page) {
         clearTweets();
         client.getUserTimeline(new JsonHttpResponseHandler() {
             public void onSuccess(JSONArray json) {
                 addAll(Tweet.fromJSONArray(json));
-               // lvTweets.onRefreshComplete();
+                onRefreshComplete();
             }
 
             public void onFailure(Throwable e) {

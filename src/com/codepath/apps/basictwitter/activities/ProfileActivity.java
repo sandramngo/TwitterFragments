@@ -59,13 +59,7 @@ public class ProfileActivity extends FragmentActivity implements OnTweetClickedL
         tvFollowers.setText(thisUser.getFollowers() + " Followers");
         tvFollowing.setText(thisUser.getFollowing() + " Following");
     }
-    
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_profile, menu);
-        return true;
-    }
-    
+ 
     public void onCompose(MenuItem mi) {       
         if (thisUser != null) {
             Intent i = new Intent(this, ComposeActivity.class);

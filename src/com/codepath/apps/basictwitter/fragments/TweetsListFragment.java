@@ -10,17 +10,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
 
 import com.codepath.apps.basictwitter.R;
 import com.codepath.apps.basictwitter.TweetArrayAdapter;
 import com.codepath.apps.basictwitter.listeners.EndlessScrollListener;
 import com.codepath.apps.basictwitter.models.Tweet;
 
+import eu.erikw.PullToRefreshListView;
+import eu.erikw.PullToRefreshListView.OnRefreshListener;
+
 public class TweetsListFragment extends Fragment implements OnItemClickListener {
     protected ArrayList<Tweet> tweets;
     protected TweetArrayAdapter aTweets;
-    protected ListView lvTweets;
+    protected PullToRefreshListView lvTweets;
     
     private OnTweetClickedListener listener;
     public interface OnTweetClickedListener {
@@ -42,7 +44,7 @@ public class TweetsListFragment extends Fragment implements OnItemClickListener 
         View v = inflater.inflate(R.layout.fragment_tweets_list, container, false);
         
         // Assign view references
-        lvTweets = (ListView) v.findViewById(R.id.lvTweets);
+        lvTweets = (PullToRefreshListView) v.findViewById(R.id.lvTweets);
         lvTweets.setAdapter(aTweets);
         lvTweets.setOnItemClickListener(this);
         lvTweets.setOnScrollListener(new EndlessScrollListener() {
@@ -55,6 +57,18 @@ public class TweetsListFragment extends Fragment implements OnItemClickListener 
                 }
             }
          });
+        
+        lvTweets.setOnRefreshListener(new OnRefreshListener() {
+        @Override
+        public void onRefresh() {
+            // Your code to refresh the list contents
+            // Make sure you call listView.onRefreshComplete()
+            // once the loading is done. This can be done from here or any
+            // place such as when the network request has completed successfully.
+            fetchTimelineAsync(0);
+        }
+    });
+
         
         // Return view
         return v;
@@ -80,6 +94,15 @@ public class TweetsListFragment extends Fragment implements OnItemClickListener 
         aTweets.clear();
     }
     
+    public void refreshTimeline() {
+        populateTimeline(1, 0);
+        lvTweets.setSelection(0);
+    }
+    
+    public void onRefreshComplete() {
+        lvTweets.onRefreshComplete();
+    }
+    
     @Override
     public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
         Tweet tweet = tweets.get(position);
@@ -87,6 +110,8 @@ public class TweetsListFragment extends Fragment implements OnItemClickListener 
     }
     
     public void customLoadMoreDataFromApi(int page, long maxId) {}
+    public void fetchTimelineAsync(int page) {}
+    public void populateTimeline(int page, long maxId) {}
     
     
 }
