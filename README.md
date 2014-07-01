@@ -1,7 +1,7 @@
 Simple-Twitter-Client
 ===============
 
-Time spent: 5 hours spent in total
+Time spent: 15 hours spent in total
 
 Completed user stories:
 
@@ -30,5 +30,6 @@ Completed user stories:
 Walkthrough of all user stories:
 
 ![Video Walkthrough] 
+(TwitterFragments.gif)
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
