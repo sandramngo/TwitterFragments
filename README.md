@@ -18,7 +18,7 @@ Completed user stories:
    * [x] Required: Profile view should include that user's timeline
    * [] Optional: User can view following / followers list through the profile
  * [] Advanced: Robust error handling, check if internet is available, handle error cases, network failures
- * [] Advanced: When a network request is sent, user sees an indeterminate progress indicator
+ * [x] Advanced: When a network request is sent, user sees an indeterminate progress indicator
  * [] Advanced: User can "reply" to any tweet on their home timeline
    * [] The user that wrote the original tweet is automatically "@" replied in compose
  * [x] Advanced: User can click on a tweet to be taken to a "detail view" of that tweet

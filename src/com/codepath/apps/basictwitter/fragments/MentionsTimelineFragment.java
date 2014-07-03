@@ -52,10 +52,11 @@ public class MentionsTimelineFragment extends TweetsListFragment implements OnIt
     
     @Override
     public void populateTimeline(final int page, long maxId) {
-        Log.d("debug", "Mentions populate page " + page);
+        showProgressBar();
         client.getMentionsTimeline(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(JSONArray json) {
+                hideProgressBar();
                 if (page == 1) {
                     clearTweets();
                 }
@@ -63,6 +64,7 @@ public class MentionsTimelineFragment extends TweetsListFragment implements OnIt
             }
             @Override
             public void onFailure(Throwable e, String s) {
+                hideProgressBar();
                 Log.d("debug", e.toString());
                 Log.d("debug", s.toString());
             }

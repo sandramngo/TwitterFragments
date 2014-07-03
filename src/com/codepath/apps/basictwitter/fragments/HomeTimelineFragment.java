@@ -5,10 +5,11 @@ import org.json.JSONArray;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ProgressBar;
 
+import com.codepath.apps.basictwitter.R;
 import com.codepath.apps.basictwitter.TwitterApplication;
 import com.codepath.apps.basictwitter.TwitterClient;
-import com.codepath.apps.basictwitter.listeners.EndlessScrollListener;
 import com.codepath.apps.basictwitter.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -20,35 +21,18 @@ public class HomeTimelineFragment extends TweetsListFragment implements OnItemCl
         super.onCreate(savedInstanceState);
         client = TwitterApplication.getRestClient();
         populateTimeline(1, 0);
-       
-        
-//        
-//        lvTweets.setOnRefreshListener(new OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                // Your code to refresh the list contents
-//                // Make sure you call listView.onRefreshComplete()
-//                // once the loading is done. This can be done from here or any
-//                // place such as when the network request has completed successfully.
-//                fetchTimelineAsync(0);
-//            }
-//        });
-//        
-//        lvTweets.setOnItemClickListener(this);
-//        
-//        client.getVerifyCredentials(new JsonHttpResponseHandler() {
-//            @Override
-//            public void onSuccess(JSONObject json) {
-//                thisUser = User.fromJSON(json);
-//            }
-//        });
     }
     
     @Override
     public void populateTimeline(final int page, long maxId) {
+//        pb.setVisibility(ProgressBar.VISIBLE);
+        showProgressBar();
         client.getHomeTimeline(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(JSONArray json) {
+                // run a background job and once complete
+    //            pb.setVisibility(ProgressBar.INVISIBLE);
+                hideProgressBar();
                 if (page == 1) {
                     clearTweets();
                 }
@@ -58,6 +42,8 @@ public class HomeTimelineFragment extends TweetsListFragment implements OnItemCl
             public void onFailure(Throwable e, String s) {
                 Log.d("debug", e.toString());
                 Log.d("debug", s.toString());
+                // run a background job and once complete
+                pb.setVisibility(ProgressBar.INVISIBLE);
             }
         }, maxId);
     }

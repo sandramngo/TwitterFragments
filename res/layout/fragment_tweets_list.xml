@@ -8,5 +8,9 @@
         android:id="@+id/lvTweets"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/> 
+    <ProgressBar
+        android:id="@+id/pbLoadBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

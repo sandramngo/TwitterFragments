@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ProgressBar;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.codepath.apps.basictwitter.R;
@@ -23,6 +24,7 @@ public class TweetsListFragment extends Fragment implements OnItemClickListener 
     protected ArrayList<Tweet> tweets;
     protected TweetArrayAdapter aTweets;
     protected PullToRefreshListView lvTweets;
+    protected ProgressBar pb;
     
     private OnTweetClickedListener listener;
     public interface OnTweetClickedListener {
@@ -59,16 +61,17 @@ public class TweetsListFragment extends Fragment implements OnItemClickListener 
          });
         
         lvTweets.setOnRefreshListener(new OnRefreshListener() {
-        @Override
-        public void onRefresh() {
-            // Your code to refresh the list contents
-            // Make sure you call listView.onRefreshComplete()
-            // once the loading is done. This can be done from here or any
-            // place such as when the network request has completed successfully.
-            fetchTimelineAsync(0);
-        }
-    });
+            @Override
+            public void onRefresh() {
+                // Your code to refresh the list contents
+                // Make sure you call listView.onRefreshComplete()
+                // once the loading is done. This can be done from here or any
+                // place such as when the network request has completed successfully.
+                fetchTimelineAsync(0);
+            }
+        });
 
+        pb = (ProgressBar) v.findViewById(R.id.pbLoadBar);
         
         // Return view
         return v;
@@ -101,6 +104,18 @@ public class TweetsListFragment extends Fragment implements OnItemClickListener 
     
     public void onRefreshComplete() {
         lvTweets.onRefreshComplete();
+    }
+    
+    public void showProgressBar() {
+        if (pb != null) {
+            pb.setVisibility(ProgressBar.VISIBLE);
+        }
+    }
+    
+    public void hideProgressBar() {
+        if (pb != null) {
+            pb.setVisibility(ProgressBar.INVISIBLE);
+        }
     }
     
     @Override
