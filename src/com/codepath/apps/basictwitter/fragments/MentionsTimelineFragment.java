@@ -39,7 +39,7 @@ public class MentionsTimelineFragment extends TweetsListFragment implements OnIt
                 public void onSuccess(JSONArray json) {
                     hideProgressBar();
                     if (page == 1) {
-                        clearTweets();
+                       //clearTweets();
                     }
                     addAll(Tweet.fromJSONArray(json));
                 }

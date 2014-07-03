@@ -44,7 +44,7 @@ public class UserTimelineFragment extends TweetsListFragment {
                 public void onSuccess(JSONArray json) {
                     hideProgressBar();
                     if (page == 1) {
-                        clearTweets();
+                        //clearTweets();
                     }
                     addAll(Tweet.fromJSONArray(json));
                 }
