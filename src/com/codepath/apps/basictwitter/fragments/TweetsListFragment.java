@@ -75,6 +75,7 @@ public class TweetsListFragment extends Fragment implements OnItemClickListener 
                     fetchTimelineAsync(0);
                 } else {
                     displayNoConnectionMsg();
+                    onRefreshComplete();
                 }
             }
         });
