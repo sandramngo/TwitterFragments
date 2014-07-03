@@ -1,7 +1,7 @@
 Simple-Twitter-Client
 ===============
 
-Time spent: 15 hours spent in total
+Time spent: 20 hours spent in total
 
 Completed user stories:
 
@@ -19,8 +19,8 @@ Completed user stories:
    * [] Optional: User can view following / followers list through the profile
  * [] Advanced: Robust error handling, check if internet is available, handle error cases, network failures
  * [x] Advanced: When a network request is sent, user sees an indeterminate progress indicator
- * [] Advanced: User can "reply" to any tweet on their home timeline
-   * [] The user that wrote the original tweet is automatically "@" replied in compose
+ * [x] Advanced: User can "reply" to any tweet on their home timeline
+   * [x] The user that wrote the original tweet is automatically "@" replied in compose
  * [x] Advanced: User can click on a tweet to be taken to a "detail view" of that tweet
  * [] Advanced: User can take favorite (and unfavorite) or reweet actions on a tweet
  * [x] Advanced: Improve the user interface and theme the app to feel twitter branded
@@ -31,5 +31,5 @@ Walkthrough of all user stories:
 
 ![Video Walkthrough] 
 (TwitterFragments.gif)
-
+(TwitterFragments2.gif)
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
