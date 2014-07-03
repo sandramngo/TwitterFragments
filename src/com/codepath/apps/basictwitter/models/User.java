@@ -5,30 +5,42 @@ import java.io.Serializable;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class User implements Serializable {
-    private String name;
-    private long uid;
-    private String screenName;
-    private String profileImageUrl;
-    private String tagline;
-    private int followers;
-    private int following;
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
 
-    public static User fromJSON(JSONObject jsonObject) {
-        User u = new User();
+@Table(name = "User")
+public class User extends Model implements Serializable {
+    @Column(name = "Name")
+    private String name;
+    @Column(name = "uid", unique = true, onUniqueConflict = Column.ConflictAction.REPLACE)
+    private long uid;
+    @Column(name = "screen_name")
+    private String screenName;
+    @Column(name = "profile_image_url")
+    private String profileImageUrl;
+    @Column(name = "tagline")
+    private String tagline;
+    @Column(name = "followers")
+    private int followers;
+    @Column(name = "following")
+    private int following;
+    
+    public User() {
+        super();
+    }
+    public User(JSONObject jsonObject) {
         try {
-            u.name = jsonObject.getString("name");
-            u.uid = jsonObject.getLong("id");
-            u.screenName = jsonObject.getString("screen_name");
-            u.profileImageUrl = jsonObject.getString("profile_image_url");
-            u.tagline = jsonObject.getString("description");
-            u.followers = jsonObject.getInt("followers_count");
-            u.following = jsonObject.getInt("friends_count");
+            this.name = jsonObject.getString("name");
+            this.uid = jsonObject.getLong("id");
+            this.screenName = jsonObject.getString("screen_name");
+            this.profileImageUrl = jsonObject.getString("profile_image_url");
+            this.tagline = jsonObject.getString("description");
+            this.followers = jsonObject.getInt("followers_count");
+            this.following = jsonObject.getInt("friends_count");
         } catch (JSONException e) {
             e.printStackTrace();
-            return null;
-        }
-        return u;
+        }    
     }
 
     public String getName() {

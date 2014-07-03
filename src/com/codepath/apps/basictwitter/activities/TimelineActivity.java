@@ -4,7 +4,10 @@ import org.json.JSONObject;
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
@@ -40,7 +43,8 @@ public class TimelineActivity extends FragmentActivity implements OnTweetClicked
         client.getVerifyCredentials(new JsonHttpResponseHandler() {
           @Override
           public void onSuccess(JSONObject json) {
-              thisUser = User.fromJSON(json);
+              thisUser = new User(json);
+              thisUser.save();
               getActionBar().setTitle("@" + thisUser.getScreenName());
           }
         });

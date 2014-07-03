@@ -25,6 +25,8 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class TweetArrayAdapter extends ArrayAdapter<Tweet> {
 
+    public static final int TWEET_DETAIL_ACTIVITY_REQUEST_CODE = 2;
+    
     public TweetArrayAdapter(Context context, List<Tweet> tweets) {
         super(context, 0, tweets);
     }
@@ -97,7 +99,8 @@ public class TweetArrayAdapter extends ArrayAdapter<Tweet> {
                 if (json.length() > 0) {
                     try {
                         JSONObject object = json.getJSONObject(0);
-                        User user = User.fromJSON(object);
+                        User user = new User(object);
+                        user.save();
                         Intent i = new Intent(v.getContext(), ProfileActivity.class);
                         i.putExtra("user", user);
                         v.getContext().startActivity(i); 

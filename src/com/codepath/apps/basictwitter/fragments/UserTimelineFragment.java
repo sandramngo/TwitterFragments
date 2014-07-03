@@ -38,22 +38,27 @@ public class UserTimelineFragment extends TweetsListFragment {
     public void populateTimeline(final int page, long maxId) {
         Log.d("debug", "User populate page " + page);
         showProgressBar();
-        client.getUserTimeline(new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(JSONArray json) {
-                hideProgressBar();
-                if (page == 1) {
-                    clearTweets();
+        if (isNetworkAvailable()) {
+            client.getUserTimeline(new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(JSONArray json) {
+                    hideProgressBar();
+                    if (page == 1) {
+                        clearTweets();
+                    }
+                    addAll(Tweet.fromJSONArray(json));
                 }
-                addAll(Tweet.fromJSONArray(json));
-            }
-            @Override
-            public void onFailure(Throwable e, String s) {
-                Log.d("debug", e.toString());
-                Log.d("debug", s.toString());
-                hideProgressBar();
-            }
-        }, user.getUid() + "", maxId);
+                @Override
+                public void onFailure(Throwable e, String s) {
+                    Log.d("debug", e.toString());
+                    Log.d("debug", s.toString());
+                    hideProgressBar();
+                }
+            }, user.getUid() + "", maxId);
+        } else {
+            hideProgressBar();
+            displayNoConnectionMsg();
+        }
     }
     
     @Override

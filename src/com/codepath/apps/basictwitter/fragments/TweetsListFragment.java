@@ -3,14 +3,18 @@ package com.codepath.apps.basictwitter.fragments;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ProgressBar;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ProgressBar;
 
 import com.codepath.apps.basictwitter.R;
 import com.codepath.apps.basictwitter.TweetArrayAdapter;
@@ -67,7 +71,11 @@ public class TweetsListFragment extends Fragment implements OnItemClickListener 
                 // Make sure you call listView.onRefreshComplete()
                 // once the loading is done. This can be done from here or any
                 // place such as when the network request has completed successfully.
-                fetchTimelineAsync(0);
+                if (isNetworkAvailable()) {
+                    fetchTimelineAsync(0);
+                } else {
+                    displayNoConnectionMsg();
+                }
             }
         });
 
@@ -91,6 +99,10 @@ public class TweetsListFragment extends Fragment implements OnItemClickListener 
     
     public void addAll(ArrayList<Tweet> tweets) {
         aTweets.addAll(tweets);
+        for (Tweet tweet : tweets) {
+            tweet.user.save();
+            tweet.save();
+        }
     }
     
     public void clearTweets() {
@@ -116,6 +128,17 @@ public class TweetsListFragment extends Fragment implements OnItemClickListener 
         if (pb != null) {
             pb.setVisibility(ProgressBar.INVISIBLE);
         }
+    }
+    
+    public Boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager 
+              = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
+    }
+    
+    public void displayNoConnectionMsg() {
+        Toast.makeText(getActivity(), "No connection!", Toast.LENGTH_SHORT).show();
     }
     
     @Override

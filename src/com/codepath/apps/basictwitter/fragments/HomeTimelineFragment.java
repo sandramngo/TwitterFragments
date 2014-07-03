@@ -1,13 +1,15 @@
 package com.codepath.apps.basictwitter.fragments;
 
+import java.util.ArrayList;
+
 import org.json.JSONArray;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
-import com.codepath.apps.basictwitter.R;
 import com.codepath.apps.basictwitter.TwitterApplication;
 import com.codepath.apps.basictwitter.TwitterClient;
 import com.codepath.apps.basictwitter.models.Tweet;
@@ -25,27 +27,47 @@ public class HomeTimelineFragment extends TweetsListFragment implements OnItemCl
     
     @Override
     public void populateTimeline(final int page, long maxId) {
-//        pb.setVisibility(ProgressBar.VISIBLE);
         showProgressBar();
-        client.getHomeTimeline(new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(JSONArray json) {
-                // run a background job and once complete
-    //            pb.setVisibility(ProgressBar.INVISIBLE);
-                hideProgressBar();
-                if (page == 1) {
-                    clearTweets();
+        
+        // get recent tweets from db first
+        ArrayList<Tweet> recentTweets = (ArrayList) Tweet.getRecent();
+        
+        // get the newest id
+        long sinceId = 1;
+        if (recentTweets.size() > 0 && page == 1) {
+            Tweet latestTweet = recentTweets.get(0);
+            sinceId = latestTweet.getUid();
+        }
+        
+        Log.d("debug", "max_id: " + maxId + " since_id: " + sinceId);
+        if (isNetworkAvailable()) {
+            // get new tweets
+            client.getHomeTimeline(new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(JSONArray json) {
+                    hideProgressBar();
+                    if (page == 1) {
+                        clearTweets();
+                    }
+                    addAll(Tweet.fromJSONArray(json));
                 }
-                addAll(Tweet.fromJSONArray(json));
-            }
-            @Override
-            public void onFailure(Throwable e, String s) {
-                Log.d("debug", e.toString());
-                Log.d("debug", s.toString());
-                // run a background job and once complete
-                pb.setVisibility(ProgressBar.INVISIBLE);
-            }
-        }, maxId);
+                @Override
+                public void onFailure(Throwable e, String s) {
+                    Log.d("debug", e.toString());
+                    Log.d("debug", s.toString());
+                    pb.setVisibility(ProgressBar.INVISIBLE);
+                }
+            }, maxId, sinceId);
+        } else {
+            hideProgressBar();
+            displayNoConnectionMsg();
+        }
+        // add the older tweets 
+        if (recentTweets.size() != 0 && page == 1) {
+           addAll(recentTweets);
+           Log.d("debug", "recent tweet size : " + recentTweets.size());
+            
+        }
     }
     
     @Override

@@ -28,47 +28,32 @@ public class MentionsTimelineFragment extends TweetsListFragment implements OnIt
         super.onCreate(savedInstanceState);
         client = TwitterApplication.getRestClient();
         populateTimeline(1, 0);
-//        
-//        lvTweets.setOnRefreshListener(new OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                // Your code to refresh the list contents
-//                // Make sure you call listView.onRefreshComplete()
-//                // once the loading is done. This can be done from here or any
-//                // place such as when the network request has completed successfully.
-//                fetchTimelineAsync(0);
-//            }
-//        });
-//        
-//        lvTweets.setOnItemClickListener(this);
-//        
-//        client.getVerifyCredentials(new JsonHttpResponseHandler() {
-//            @Override
-//            public void onSuccess(JSONObject json) {
-//                thisUser = User.fromJSON(json);
-//            }
-//        });
     }
     
     @Override
     public void populateTimeline(final int page, long maxId) {
         showProgressBar();
-        client.getMentionsTimeline(new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(JSONArray json) {
-                hideProgressBar();
-                if (page == 1) {
-                    clearTweets();
+        if (isNetworkAvailable()) {
+            client.getMentionsTimeline(new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(JSONArray json) {
+                    hideProgressBar();
+                    if (page == 1) {
+                        clearTweets();
+                    }
+                    addAll(Tweet.fromJSONArray(json));
                 }
-                addAll(Tweet.fromJSONArray(json));
-            }
-            @Override
-            public void onFailure(Throwable e, String s) {
-                hideProgressBar();
-                Log.d("debug", e.toString());
-                Log.d("debug", s.toString());
-            }
-        }, maxId);
+                @Override
+                public void onFailure(Throwable e, String s) {
+                    hideProgressBar();
+                    Log.d("debug", e.toString());
+                    Log.d("debug", s.toString());
+                }
+            }, maxId);
+        } else {
+            hideProgressBar();
+            displayNoConnectionMsg();
+        }
     }
     
     @Override
